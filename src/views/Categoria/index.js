@@ -8,10 +8,13 @@ import styles from "./styles";
 
 export default function Categoria() {
 
+    const cidade =  this.props.navigation.getParam('cidade', 'nothing sent')
     const navigation = useNavigation();
 
-    function navigateToList(){
-        navigation.navigate('Lista');
+    function navigateToList(catSelecionada){
+        navigation.navigate('Lista', {
+            categoria: catSelecionada
+        });
     }
 
     function navigateToCity(){
@@ -29,7 +32,8 @@ export default function Categoria() {
                     >
                     <AntDesign name="left" size={24} color="#fff" />
                 </TouchableOpacity>
-                <Text style={styles.textHeader}>CATEGORIAS</Text>
+                <Text style={styles.textHeader}>CATEGORIAS ${cidade}</Text>
+                
             </View>
 
             <FlatList
@@ -40,7 +44,7 @@ export default function Categoria() {
                 renderItem={({ item }) => {
                     return (
                         <TouchableOpacity 
-                            onPress={() => navigateToList()}
+                            onPress={() => navigateToList(item)}
                         >
                             <View style={styles.categoria}>
                                 <Text>{item}</Text>

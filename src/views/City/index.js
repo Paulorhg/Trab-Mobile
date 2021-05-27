@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, Button } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Feather } from '@expo/vector-icons';
@@ -10,10 +10,21 @@ import styles from "./styles";
 
 export default function City() {
 
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+        {label: 'Sorocaba', value: 'sorocaba'},
+        {label: 'São Paulo', value: 'são paulo'},
+        {label: 'Campinas', value: 'campinas'},
+    ]);
+
+
     const navigation = useNavigation();
 
     function navigateToCategoria(){
-        navigation.navigate('Categoria');
+        navigation.navigate('Categoria',
+        {cidade:value}
+        );
     }
 
 
@@ -26,11 +37,15 @@ export default function City() {
                 <Text style={styles.title}>Escolha a cidade</Text>
 
                 <DropDownPicker
-                    items={[
-                        {label: 'Sorocaba', value: 'sorocaba'},
-                        {label: 'São Paulo', value: 'são paulo'},
-                        {label: 'Campinas', value: 'campinas'},
-                    ]}
+                    
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+
+
                     defaultValue={'Sorocaba'}
                     containerStyle={{height: 50, width: 200}}
                     style={{backgroundColor: '#fafafa'}}
@@ -38,8 +53,10 @@ export default function City() {
                         justifyContent: 'flex-start'
                     }}
                     dropDownStyle={{backgroundColor: '#fafafa'}}
-                    onChangeItem={() => { }}
+                    onChangeItem={item => setValue(item.value)}
+                    // onChangeItem={() => { setValue() }}
                 />
+
 
                 <Button style={styles.button} title="Proximo" onPress={navigateToCategoria}/>
             </View>

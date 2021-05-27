@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 const AppStack = createStackNavigator();
 
+import Login from "./views/Login";
 import City from "./views/City";
 import Categoria from "./views/Categoria";
 import Lista from "./views/Lista";
@@ -15,6 +16,7 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <AppStack.Navigator screenOptions={{ headerShown: false }}>
+        <AppStack.Screen name="Login" component={Login} />
         <AppStack.Screen name="City" component={City} />
         <AppStack.Screen name="Categoria" component={Categoria} />
         <AppStack.Screen name="Lista" component={Lista} />
